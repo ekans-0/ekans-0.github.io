@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ekansh Dave - Personal Website</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <div class="container">
+        <h2 id="dynamic-subheading"></h2>
+        <h1>Ekansh Dave</h1>
+        <p>Welcome to my personal website!</p>
+    </div>
+</header>
+
+<main>
+    <section class="section" id="extracurriculars">
+        <h2>Extracurriculars</h2>
+        <ul>
+            <li>Extracurricular 1</li>
+            <li>Extracurricular 2</li>
+            <li>Extracurricular 3</li>
+        </ul>
+    </section>
+
+    <section class="section" id="awards">
+        <h2>Awards</h2>
+        <ul>
+            <li>Award 1</li>
+            <li>Award 2</li>
+            <li>Award 3</li>
+        </ul>
+    </section>
+
+    <section class="section" id="competitions">
+        <h2>Competitions</h2>
+        <ul>
+            <li>Competition 1</li>
+            <li>Competition 2</li>
+            <li>Competition 3</li>
+        </ul>
+    </section>
+
+    <section class="section" id="projects">
+        <h2>Projects</h2>
+        <div class="project-container">
+            <div class="project" onclick="openPopup('project1')">
+                <h3>Project 1</h3>
+            </div>
+            <div class="project" onclick="openPopup('project2')">
+                <h3>Project 2</h3>
+            </div>
+            <div class="project" onclick="openPopup('project3')">
+                <h3>Project 3</h3>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="engineering-projects">
+        <h2>Engineering Projects</h2>
+        <ul>
+            <li>Engineering Project 1</li>
+            <li>Engineering Project 2</li>
+            <li>Engineering Project 3</li>
+        </ul>
+    </section>
+</main>
+
+<div class="popup" id="project1-popup">
+    <div class="popup-content">
+        <h3>Project 1 Details</h3>
+        <p>Details about Project 1...</p>
+        <button onclick="closePopup('project1')">Close</button>
+    </div>
+</div>
+
+<div class="popup" id="project2-popup">
+    <div class="popup-content">
+        <h3>Project 2 Details</h3>
+        <p>Details about Project 2...</p>
+        <button onclick="closePopup('project2')">Close</button>
+    </div>
+</div>
+
+<div class="popup" id="project3-popup">
+    <div class="popup-content">
+        <h3>Project 3 Details</h3>
+        <p>Details about Project 3...</p>
+        <button onclick="closePopup('project3')">Close</button>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 Ekansh Dave</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
