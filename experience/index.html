@@ -299,7 +299,7 @@ footer a{color:var(--t3);text-decoration:none;transition:color .15s;}footer a:ho
 <script>
 window.addEventListener('load',()=>{setTimeout(()=>document.getElementById('loader').classList.add('gone'),800);});
 const cur=document.getElementById('cur'),lag=document.getElementById('cur-lag');
-let mx=0,my=0,lx=0,ly=0;
+let mx=-100,my=-100,lx=-100,ly=-100;
 document.addEventListener('mousemove',e=>{ mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'; });
 (function a(){ lx+=(mx-lx)*.13;ly+=(my-ly)*.13;lag.style.left=lx+'px';lag.style.top=ly+'px';requestAnimationFrame(a); })();
 const ro=new IntersectionObserver(en=>en.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');}),{threshold:.06});

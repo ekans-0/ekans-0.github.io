@@ -18,8 +18,9 @@
 html{scroll-behavior:smooth;}
 ::-webkit-scrollbar{width:3px;} ::-webkit-scrollbar-thumb{background:var(--ink4);}
 body{font-family:var(--mono);background:var(--ink);color:var(--t1);cursor:none;}
-#cur{position:fixed;z-index:9999;pointer-events:none;width:5px;height:20px;background:var(--signal);transform:translate(-50%,-50%);animation:curBlink 1.1s step-end infinite;border-radius:1px;}
-@keyframes curBlink{0%,100%{opacity:1}50%{opacity:0}}
+#cur{position:fixed;z-index:9999;pointer-events:none;width:10px;height:10px;border-radius:50%;border:1.5px solid var(--gold);transform:translate(-50%,-50%);transition:width .15s,height .15s,border-color .15s,background .15s;}
+#cur-lag{position:fixed;z-index:9998;pointer-events:none;width:32px;height:32px;border-radius:50%;border:1px solid rgba(228,207,148,.14);transform:translate(-50%,-50%);}
+body:has(a:hover,button:hover) #cur{width:18px;height:18px;background:rgba(228,207,148,.12);border-color:var(--teal);}
 #bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(232,213,163,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(232,213,163,.025) 1px,transparent 1px);background-size:48px 48px;}
 body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.04) 3px,rgba(0,0,0,.04) 4px);}
 
@@ -269,14 +270,9 @@ footer a{color:var(--t3);text-decoration:none;transition:color .15s;}footer a:ho
 <script>
 
 const cur=document.getElementById('cur'),lag=document.getElementById('cur-lag');
-let mx=0,my=0,lx=0,ly=0;
+let mx=-100,my=-100,lx=-100,ly=-100;
 document.addEventListener('mousemove',e=>{ mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'; });
 (function a(){ lx+=(mx-lx)*.13;ly+=(my-ly)*.13;lag.style.left=lx+'px';lag.style.top=ly+'px';requestAnimationFrame(a); })();
- cur.style.top=e.clientY+'px'; });
-document.querySelectorAll('a,.card,.fb').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{ cur.style.height='3px';cur.style.width='18px'; });
-  el.addEventListener('mouseleave',()=>{ cur.style.height='20px';cur.style.width='5px'; });
-});
 
 // filter
 function filt(tag, btn){
