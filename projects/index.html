@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Projects — Ekansh Dave</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0a0b0e;--ink1:#0e1014;--ink2:#141720;--ink3:#1c2030;--ink4:#252a3a;
+  --t1:#e8e6e1;--t2:#7a8099;--t3:#363c52;--t4:#1e2235;
+  --gold:#e4cf94;  --signal:#e8d5a3;--drift:#5be0c8;--vol:#f87171;--prob:#818cf8;
+  --border:rgba(232,213,163,.08);--border2:rgba(232,213,163,.22);
+  --mono:'IBM Plex Mono',monospace;--serif:'Instrument Serif',Georgia,serif;--sans:'Inter',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+::-webkit-scrollbar{width:3px;} ::-webkit-scrollbar-thumb{background:var(--ink4);}
+body{font-family:var(--mono);background:var(--ink);color:var(--t1);cursor:none;}
+#cur{position:fixed;z-index:9999;pointer-events:none;width:5px;height:20px;background:var(--signal);transform:translate(-50%,-50%);animation:curBlink 1.1s step-end infinite;border-radius:1px;}
+@keyframes curBlink{0%,100%{opacity:1}50%{opacity:0}}
+#bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(232,213,163,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(232,213,163,.025) 1px,transparent 1px);background-size:48px 48px;}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.04) 3px,rgba(0,0,0,.04) 4px);}
+
+#nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:56px;background:rgba(10,11,14,.88);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);}
+.nav-id{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;color:var(--signal);letter-spacing:.08em;text-decoration:none;}
+.nav-pip{width:7px;height:7px;border-radius:50%;background:var(--drift);box-shadow:0 0 8px var(--drift);animation:pip 2.4s ease-in-out infinite;}
+@keyframes pip{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.2;transform:scale(.7)}}
+.nav-links{display:flex;gap:36px;}
+.nav-links a{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--t3);text-decoration:none;transition:color .2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--signal);}
+
+.page-head{padding:120px 48px 56px;position:relative;z-index:10;border-bottom:1px solid var(--border);}
+.ph-crumb{font-family:var(--mono);font-size:9px;color:var(--t4);letter-spacing:.15em;margin-bottom:12px;}
+.ph-crumb a{color:var(--t4);text-decoration:none;} .ph-crumb a:hover{color:var(--signal);}
+.ph-title{font-family:var(--serif);font-size:clamp(44px,7vw,88px);font-weight:400;color:var(--t1);letter-spacing:-.02em;line-height:.95;}
+.ph-title em{font-style:italic;color:var(--signal);}
+.ph-sub{font-family:var(--mono);font-size:10px;color:var(--t3);margin-top:14px;letter-spacing:.05em;}
+
+.filter-strip{position:sticky;top:56px;z-index:100;background:rgba(10,11,14,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:12px 48px;display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.fl{font-family:var(--mono);font-size:9px;color:var(--t4);letter-spacing:.15em;margin-right:8px;}
+.fb{font-family:var(--mono);font-size:9px;padding:5px 14px;border:1px solid var(--border);background:transparent;color:var(--t3);cursor:none;transition:all .15s;letter-spacing:.08em;}
+.fb:hover{color:var(--t1);border-color:var(--border2);}
+.fb.on{background:rgba(232,213,163,.07);border-color:var(--signal);color:var(--signal);}
+
+main{padding:48px 48px 88px;position:relative;z-index:10;}
+
+/* FEATURED */
+.feat-block{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border);margin-bottom:40px;transition:border-color .2s;}
+.feat-block:hover{border-color:var(--border2);}
+@media(max-width:780px){.feat-block{grid-template-columns:1fr;}}
+.fb-media{background:var(--ink2);min-height:300px;overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;}
+.fb-media canvas{width:100%;height:100%;}
+.fb-body{padding:36px;display:flex;flex-direction:column;justify-content:space-between;background:var(--ink1);}
+.fb-badge{font-family:var(--mono);font-size:8px;color:var(--signal);letter-spacing:.2em;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.fb-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--drift);box-shadow:0 0 5px var(--drift);animation:pip 2.4s infinite;}
+.fb-title{font-family:var(--serif);font-size:26px;color:var(--t1);margin-bottom:10px;line-height:1.15;}
+.fb-desc{font-family:var(--sans);font-size:13px;color:var(--t2);line-height:1.9;margin-bottom:18px;font-weight:300;}
+.fb-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:22px;}
+.tag{font-family:var(--mono);font-size:8px;letter-spacing:.08em;padding:2px 8px;border:1px solid;border-radius:1px;}
+.tq{border-color:rgba(232,213,163,.25);color:var(--signal);}
+.tm{border-color:rgba(129,140,248,.25);color:var(--prob);}
+.td{border-color:rgba(91,224,200,.25);color:var(--drift);}
+.tp{border-color:rgba(248,113,113,.25);color:var(--vol);}
+.fb-links{display:flex;gap:10px;}
+.lp{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:var(--signal);color:var(--ink);font-family:var(--mono);font-size:10px;font-weight:600;text-decoration:none;letter-spacing:.08em;transition:all .18s;clip-path:polygon(5px 0,100% 0,100% calc(100% - 5px),calc(100% - 5px) 100%,0 100%,0 5px);}
+.lp:hover{background:var(--drift);}
+.lg{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:transparent;border:1px solid var(--border2);color:var(--signal);font-family:var(--mono);font-size:10px;text-decoration:none;letter-spacing:.08em;transition:all .18s;}
+.lg:hover{background:rgba(232,213,163,.05);}
+
+/* SEC DIVIDER */
+.sec-div{font-family:var(--mono);font-size:9px;color:var(--t4);letter-spacing:.18em;margin:36px 0 20px;display:flex;align-items:center;gap:12px;}
+.sec-div::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* PROJ GRID */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1px;background:var(--border);}
+.card{background:var(--ink1);padding:26px;position:relative;overflow:hidden;transition:background .2s;cursor:none;}
+.card:hover{background:var(--ink2);}
+.card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--signal),transparent);transform:scaleX(0);transition:transform .3s;}
+.card:hover::after{transform:scaleX(1);}
+.c-media{height:160px;background:var(--ink2);overflow:hidden;margin:-26px -26px 18px;position:relative;}
+.c-media img,.c-media video{width:100%;height:100%;object-fit:cover;transition:transform .4s;}
+.card:hover .c-media img,.card:hover .c-media video{transform:scale(1.04);}
+.c-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;color:var(--t4);}
+.c-n{font-family:var(--mono);font-size:9px;color:var(--t4);letter-spacing:.15em;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.c-n::after{content:'';flex:1;height:1px;background:var(--border);}
+.c-title{font-family:var(--serif);font-size:19px;color:var(--t1);margin-bottom:7px;line-height:1.2;}
+.c-desc{font-family:var(--sans);font-size:12px;color:var(--t2);line-height:1.8;margin-bottom:14px;font-weight:300;}
+.c-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:14px;}
+.c-links{display:flex;gap:12px;}
+.c-links a{font-family:var(--mono);font-size:9px;color:var(--t3);text-decoration:none;letter-spacing:.05em;transition:color .15s;}
+.c-links a:hover{color:var(--signal);}
+.c-arrow{position:absolute;bottom:20px;right:20px;font-size:14px;color:var(--t4);transition:all .2s;}
+.card:hover .c-arrow{color:var(--signal);transform:translate(2px,-2px);}
+
+.hidden{display:none!important;}
+footer{border-top:1px solid var(--border);padding:20px 48px;display:flex;align-items:center;justify-content:space-between;font-family:var(--mono);font-size:9px;color:var(--t4);flex-wrap:wrap;gap:8px;position:relative;z-index:10;}
+footer a{color:var(--t3);text-decoration:none;transition:color .15s;}footer a:hover{color:var(--signal);}
+
+/* LOADER */
+#loader{position:fixed;inset:0;z-index:9000;background:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .5s ease,visibility .5s ease;}
+#loader.gone{opacity:0;visibility:hidden;}
+.loader-integral{font-family:var(--serif);font-size:48px;color:var(--gold);animation:spin 1.1s linear infinite;display:inline-block;line-height:1;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loader-text{font-family:var(--mono);font-size:9px;color:var(--t3);letter-spacing:.22em;}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-integral">∫</div>
+  <div class="loader-text">loading</div>
+</div>
+<div id="cur"></div>
+<div id="cur-lag"></div>
+<div id="bg-grid"></div>
+
+<nav id="nav">
+  <a href="../" class="nav-id"><div class="nav-pip"></div>Ekansh Dave</a>
+  <div class="nav-links">
+    <a href="../#about">about</a>
+    <a href="./" class="active">projects</a>
+    <a href="../experience/">experience</a>
+    <a href="../debate/">debate</a>
+    <a href="../#contact-sec">contact</a>
+  </div>
+</nav>
+
+<div class="page-head">
+  <div class="ph-crumb"><a href="../">ekansh dave</a> / projects</div>
+  <h1 class="ph-title">pro<em>jects</em></h1>
+  <div class="ph-sub">// filtered: <span id="fc">all</span> · showing <span id="sc">12</span></div>
+</div>
+
+<div class="filter-strip">
+  <span class="fl">FILTER</span>
+  <button class="fb on" onclick="filt('all',this)">all</button>
+  <button class="fb" onclick="filt('quant',this)">quant / SDE</button>
+  <button class="fb" onclick="filt('ml',this)">ML / AI</button>
+  <button class="fb" onclick="filt('math',this)">math</button>
+  <button class="fb" onclick="filt('web',this)">web</button>
+  <button class="fb" onclick="filt('debate',this)">debate</button>
+</div>
+
+<main>
+  <!-- FEATURED -->
+  <div class="sec-div">// featured</div>
+  <div class="feat-block" data-tags="ml math">
+    <div class="fb-media">
+      <canvas id="feat-c" width="600" height="300"></canvas>
+    </div>
+    <div class="fb-body">
+      <div>
+        <div class="fb-badge">FEATURED · ML</div>
+        <div class="fb-title">Neural Network from Scratch</div>
+        <div class="fb-desc">Complete deep learning library in pure NumPy — no PyTorch, no TensorFlow. Forward propagation, backprop via chain rule, SGD / Adam / RMSProp, batch normalization, dropout. Built to understand exactly what happens inside the black box, starting from ∂L/∂w.</div>
+        <div class="fb-tags">
+          <span class="tag tq">backpropagation</span><span class="tag tm">deep learning</span><span class="tag tp">numpy</span><span class="tag td">chain rule</span>
+        </div>
+      </div>
+      <div class="fb-links">
+        <a href="https://github.com/ekans-0" target="_blank" class="lp">→ GitHub</a>
+        <a href="#" class="lg">writeup</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUANT -->
+  <div class="sec-div">// quant & stochastic</div>
+  <div class="grid" id="proj-grid">
+    <div class="card" data-tags="quant math">
+      <div class="c-media"><canvas id="sde-c" style="width:100%;height:100%;"></canvas></div>
+      <div class="c-n">01</div>
+      <div class="c-title">SDE Path Simulator</div>
+      <div class="c-desc">Monte Carlo simulation of GBM, Ornstein-Uhlenbeck, and Heston models. European and Asian option pricing with variance reduction (antithetic, control variates).</div>
+      <div class="c-tags"><span class="tag tq">stoch. calc.</span><span class="tag tq">monte carlo</span><span class="tag tp">scipy</span></div>
+      <div class="c-links"><a href="#">→ github</a><a href="#">demo</a></div>
+      <div class="c-arrow">↗</div>
+    </div>
+
+    <div class="card" data-tags="quant math">
+      <div class="c-media"><div class="c-ph" style="background:var(--ink3);flex-direction:column;gap:4px;">
+        <div style="font-size:18px;color:rgba(232,213,163,.25);font-family:var(--mono);">Δ · Γ · Θ · ρ</div>
+        <div style="font-size:9px;color:var(--t4);">option greeks</div>
+      </div></div>
+      <div class="c-n">02</div>
+      <div class="c-title">Black-Scholes Calculator</div>
+      <div class="c-desc">Full BS option pricer with Greeks (Δ, Γ, Θ, ρ, ν), implied volatility surface, and interactive payoff diagrams. Derived directly from the heat equation via Feynman-Kac.</div>
+      <div class="c-tags"><span class="tag tq">black-scholes</span><span class="tag tq">options</span><span class="tag td">greeks</span></div>
+      <div class="c-links"><a href="#">→ github</a><a href="#">live</a></div>
+      <div class="c-arrow">↗</div>
+    </div>
+
+    <!-- ML PROJECTS -->
+    <div class="card" data-tags="ml">
+      <div class="c-media"><canvas id="loss-c" style="width:100%;height:100%;"></canvas></div>
+      <div class="c-n">03</div>
+      <div class="c-title">Gradient Descent Visualizer</div>
+      <div class="c-desc">Interactive 3D loss surface explorer. Animate SGD, Adam, RMSProp trajectories on real loss landscapes with adjustable hyperparameters. WebGL + Three.js.</div>
+      <div class="c-tags"><span class="tag tm">optimization</span><span class="tag td">webgl</span><span class="tag td">three.js</span></div>
+      <div class="c-links"><a href="#">→ demo</a><a href="#">github</a></div>
+      <div class="c-arrow">↗</div>
+    </div>
+
+    <div class="card" data-tags="ml">
+      <div class="c-media"><div class="c-ph" style="background:var(--ink3);font-size:12px;color:rgba(129,140,248,.3);flex-direction:column;gap:3px;">
+        <div>Attention(Q,K,V)</div>
+        <div style="font-size:10px;color:var(--t4)">= softmax(QKᵀ/√d)V</div>
+      </div></div>
+      <div class="c-n">04</div>
+      <div class="c-title">Transformer from Scratch</div>
+      <div class="c-desc">Multi-head self-attention, positional encoding, FFN layers, layer normalization — implemented from Vaswani et al. 2017's math. No high-level APIs.</div>
+      <div class="c-tags"><span class="tag tm">transformers</span><span class="tag tm">attention</span><span class="tag tp">pytorch</span></div>
+      <div class="c-links"><a href="#">→ github</a><a href="#">notes</a></div>
+      <div class="c-arrow">↗</div>
+    </div>
+
+    <!-- DEBATE PROJECT -->
+    <div class="card" data-tags="debate ml">
+      <div class="c-media"><div class="c-ph" style="background:var(--ink3);flex-direction:column;gap:6px;">
+        <div style="font-size:10px;color:rgba(91,224,200,.3);font-family:var(--mono);">claim → warrant → impact</div>
+        <div style="font-size:9px;color:var(--t4)">argument structure parser</div>
+      </div></div>
+      <div class="c-n">05</div>
+      <div class="c-title">Debate Evidence Analyzer</div>
+      <div class="c-desc">NLP tool that parses policy debate evidence cards, extracts argument structure (claim / warrant / impact), and scores quality using transformer sentence embeddings.</div>
+      <div class="c-tags"><span class="tag td">NLP</span><span class="tag tm">embeddings</span><span class="tag tp">python</span></div>
+      <div class="c-links"><a href="#">→ github</a></div>
+      <div class="c-arrow">↗</div>
+    </div>
+
+    <!-- MATH -->
+    <div class="card" data-tags="math ml">
+      <div class="c-media"><canvas id="scatter-c" style="width:100%;height:100%;"></canvas></div>
+      <div class="c-n">06</div>
+      <div class="c-title">K-Means from Scratch</div>
+      <div class="c-desc">Unsupervised clustering with animated convergence. K-means++, elbow method, silhouette analysis. Includes a convergence proof via the alternating minimization framework.</div>
+      <div class="c-tags"><span class="tag tm">clustering</span><span class="tag tm">unsupervised</span><span class="tag tp">numpy</span></div>
+      <div class="c-links"><a href="#">→ github</a><a href="#">demo</a></div>
+      <div class="c-arrow">↗</div>
+    </div>
+
+    <!-- WEB -->
+    <div class="card" data-tags="web math">
+      <div class="c-media"><div class="c-ph" style="background:var(--ink3);">
+        <div style="font-size:22px;color:rgba(232,213,163,.18);font-family:var(--serif);font-style:italic;">this site</div>
+      </div></div>
+      <div class="c-n">07</div>
+      <div class="c-title">Personal Site</div>
+      <div class="c-desc">This portfolio — pure HTML/CSS/JS, no frameworks. Brownian motion background canvas, typewriter effect, animated GBM chart, skill bars, neural network animation.</div>
+      <div class="c-tags"><span class="tag td">html/css/js</span><span class="tag td">canvas</span><span class="tag tq">GBM</span></div>
+      <div class="c-links"><a href="https://github.com/ekans-0" target="_blank">→ github</a></div>
+      <div class="c-arrow">↗</div>
+    </div>
+  </div>
+
+  <div style="margin-top:40px;border:1px dashed rgba(232,213,163,.08);padding:28px;text-align:center;font-family:var(--mono);font-size:10px;color:var(--t4);letter-spacing:.1em;">
+    // more projects in progress — check back
+  </div>
+</main>
+
+<footer>
+  <a href="../">← Ekansh Dave</a>
+  <span>ekansh-0.github.io/projects</span>
+</footer>
+
+<script>
+
+const cur=document.getElementById('cur'),lag=document.getElementById('cur-lag');
+let mx=0,my=0,lx=0,ly=0;
+document.addEventListener('mousemove',e=>{ mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'; });
+(function a(){ lx+=(mx-lx)*.13;ly+=(my-ly)*.13;lag.style.left=lx+'px';lag.style.top=ly+'px';requestAnimationFrame(a); })();
+ cur.style.top=e.clientY+'px'; });
+document.querySelectorAll('a,.card,.fb').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ cur.style.height='3px';cur.style.width='18px'; });
+  el.addEventListener('mouseleave',()=>{ cur.style.height='20px';cur.style.width='5px'; });
+});
+
+// filter
+function filt(tag, btn){
+  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  let n=0;
+  document.querySelectorAll('.card,.feat-block').forEach(c=>{
+    const tags=(c.dataset.tags||'').split(' ');
+    const show=tag==='all'||tags.includes(tag);
+    c.classList.toggle('hidden',!show);
+    if(show)n++;
+  });
+  document.getElementById('fc').textContent=tag;
+  document.getElementById('sc').textContent=n;
+}
+
+// featured canvas — neural net
+const fc=document.getElementById('feat-c');
+if(fc){
+  const ctx=fc.getContext('2d');
+  const layers=[4,6,6,5,2]; const nodes=[]; let t=0;
+  function setup(){ fc.width=fc.offsetWidth||600; fc.height=fc.offsetHeight||300; const W=fc.width,H=fc.height; nodes.length=0; layers.forEach((n,li)=>{ const x=60+li*(W-120)/(layers.length-1); for(let i=0;i<n;i++) nodes.push({x,y:H/2+(i-(n-1)/2)*40,layer:li,idx:i}); }); }
+  setup(); window.addEventListener('resize',setup);
+  function draw(){ const W=fc.width,H=fc.height; ctx.clearRect(0,0,W,H); nodes.forEach(a=>nodes.forEach(b=>{ if(b.layer!==a.layer+1) return; const w=Math.sin(t*.02+a.idx*.9+b.idx*.6); ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.strokeStyle=w>0?`rgba(232,213,163,${Math.abs(w)*.1+.02})`:`rgba(91,224,200,${Math.abs(w)*.1+.02})`; ctx.lineWidth=Math.abs(w)*.8+.2; ctx.stroke(); })); nodes.forEach((n,i)=>{ const act=(Math.sin(t*.04+i*1.3)+1)/2; ctx.beginPath(); ctx.arc(n.x,n.y,5+act*2,0,Math.PI*2); ctx.fillStyle=`rgba(232,213,163,${.1+act*.45})`; ctx.fill(); ctx.strokeStyle=`rgba(232,213,163,${.2+act*.4})`; ctx.lineWidth=.7; ctx.stroke(); }); t++; requestAnimationFrame(draw); }
+  draw();
+}
+
+// sde mini canvas
+const sc=document.getElementById('sde-c');
+if(sc){
+  const ctx=sc.getContext('2d'); let t=0; const paths=[];
+  function regen(W,H){ paths.length=0; for(let p=0;p<4;p++){ const arr=[{x:0,y:H/2+(Math.random()-.5)*H*.3}]; paths.push({pts:arr,col:p===0?'232,213,163':p===1?'91,224,200':'129,140,248'}); } }
+  function draw(){ const W=sc.width=sc.offsetWidth||300; const H=sc.height=sc.offsetHeight||160; if(paths.length===0) regen(W,H); ctx.fillStyle='rgba(20,23,32,.15)'; ctx.fillRect(0,0,W,H); paths.forEach((p,pi)=>{ if(t%1===0){ const last=p.pts[p.pts.length-1]; const nx=last.x+(W/300); const ny=last.y+(Math.random()-Math.random())*4; p.pts.push({x:nx,y:ny}); if(p.pts.length>120) p.pts.shift(); if(nx>W+20){ p.pts=[{x:0,y:H/2+(Math.random()-.5)*H*.3}]; } } if(p.pts.length<2) return; ctx.beginPath(); ctx.moveTo(p.pts[0].x,p.pts[0].y); p.pts.forEach(pt=>ctx.lineTo(pt.x,pt.y)); ctx.strokeStyle=`rgba(${p.col},${pi===0?.7:.3})`; ctx.lineWidth=pi===0?1.5:.7; ctx.stroke(); }); t++; requestAnimationFrame(draw); }
+  draw();
+}
+
+// loss canvas
+const lc=document.getElementById('loss-c');
+if(lc){
+  const ctx=lc.getContext('2d'); let t=0;
+  function draw(){ const W=lc.width=lc.offsetWidth||300; const H=lc.height=lc.offsetHeight||160; ctx.fillStyle='rgba(20,23,32,.2)'; ctx.fillRect(0,0,W,H); const colors=[['232,213,163',.7],['91,224,200',.5],['129,140,248',.4]]; const rates=[3.5,4.5,2.8]; colors.forEach(([col,a],ci)=>{ ctx.beginPath(); for(let x=0;x<W;x++){ const p=x/W; const l=70*Math.exp(-p*rates[ci])+8+Math.sin(x*.4+t*.03+ci*1.2)*3*(1-p); if(x===0) ctx.moveTo(x,H-l*H/100); else ctx.lineTo(x,H-l*H/100); } ctx.strokeStyle=`rgba(${col},${a})`; ctx.lineWidth=ci===0?1.8:.8; ctx.stroke(); }); t++; requestAnimationFrame(draw); }
+  draw();
+}
+
+// scatter canvas
+const rc=document.getElementById('scatter-c');
+if(rc){
+  const ctx=rc.getContext('2d'); const W_=300,H_=160;
+  rc.width=W_; rc.height=H_;
+  const cls=[{cx:W_*.28,cy:H_*.38,r:34,c:'232,213,163'},{cx:W_*.72,cy:H_*.4,r:30,c:'91,224,200'},{cx:W_*.5,cy:H_*.72,r:32,c:'129,140,248'}];
+  ctx.fillStyle='#141720'; ctx.fillRect(0,0,W_,H_);
+  cls.forEach(cl=>{ for(let i=0;i<22;i++){ const ax=(Math.random()-.5)*cl.r*2+cl.cx; const ay=(Math.random()-.5)*cl.r*2+cl.cy; ctx.beginPath(); ctx.arc(ax,ay,2.5,0,Math.PI*2); ctx.fillStyle=`rgba(${cl.c},.55)`; ctx.fill(); } ctx.beginPath(); ctx.arc(cl.cx,cl.cy,8,0,Math.PI*2); ctx.fillStyle=`rgba(${cl.c},1)`; ctx.fill(); ctx.beginPath(); ctx.arc(cl.cx,cl.cy,cl.r*.75,0,Math.PI*2); ctx.strokeStyle=`rgba(${cl.c},.15)`; ctx.lineWidth=1; ctx.stroke(); });
+}
+
+window.addEventListener('load',()=>{setTimeout(()=>document.getElementById('loader').classList.add('gone'),800);});
+</script>
+</body>
+</html>
